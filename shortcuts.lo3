@@ -1,0 +1,90 @@
+-f ./defines/shortcuts.lo3
+-//*
+Copyright (c) 2026 seesee010
+See License file for more informations.
+-*//
+@.=
+
+#define TRUE $1
+#define FALSE $0
+
+/* PLATFORM */
+#ifdef _WIN32
+	#define PLATFORM _win
+	#define PATH _\\
+	#define NULL _NUL
+	#define HOME_ENV _USERPROFILE
+	#define LIB _.dll
+
+#elif __APPLE
+	#define PLATFORM _macOS
+	#define PATH _/
+	#define HOME_ENV _HOME
+	#define NULL _/dev/null
+	#define LIB _.dylib
+
+#elif __linux__
+	#define PLATFORM _linux
+	#define PATH _/
+	#define NULL _/dev/null
+	#define HOME_ENV _HOME
+	#define LIB _.so
+#endif
+
+/* ARCH */
+	#ifdef __x86_64__
+  	#define ARCH_64
+
+#elif __aarch64__
+  	#define ARCH_STR _arm64
+  	#define ARCH_64
+
+#elif __arm__
+  	#define ARCH_STR _arm32
+	#define ARCH_32
+
+#elif __riscv
+  	#define ARCH_STR _riscv
+#endif
+
+/* COMPILER */
+#ifdef __clang__
+  	#define COMPILER_STR  _clang
+
+#elif __GNUC__
+  	#define COMPILER_STR  _gcc
+
+#elif _MSC_VER
+  	#define COMPILER_STR  _msvc
+#endif
+
+/* language Specs */
+#define TYPE_INT $0
+#define TYPE_STR $3
+
+/* math */
+#define PI         /3.14159265
+#define E          /2.71828182
+#define TAU        /6.28318530
+#define SQRT2      /1.41421356
+#define PHI        /1.61803398
+
+/* exit */
+#define EXIT_OK $0
+#define EXIT_ERR $1
+
+/* type limits */
+#define MAX_VARS $256
+#define MAX_G $100
+#define MAX_STR $1024
+
+/* FUNC */
+#PRINT(x) \o ##x $0
+#define PRINTLN(x) =O ##x\n $0
+
+#define INPUT(x) =i %##x $0
+
+/* Control Flow */
+#define BREAK(name) \
+	@{0:$99} \
+	=d _##name *0
