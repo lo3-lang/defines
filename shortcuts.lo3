@@ -16,7 +16,7 @@ See License file for more informations.
 	#define HOME_ENV _USERPROFILE
 	#define LIB _.dll
 
-#elif __APPLE
+#elif __APPLE__
 	#define PLATFORM _macOS
 	#define PATH _/
 	#define HOME_ENV _HOME
@@ -79,8 +79,10 @@ See License file for more informations.
 #define MAX_STR $1024
 
 /* FUNC */
-#PRINT(x) \o ##x $0
-#define PRINTLN(x) =O ##x\n $0
+#define PRINT_c(x) =o _##x $0
+#define PRINT_i(x) =o $##x $0
+
+#define PRINTF(x, y) =O _##x _##y
 
 #define INPUT(x) =i %##x $0
 
@@ -88,3 +90,14 @@ See License file for more informations.
 #define BREAK(name) \
 	@{0:$99} \
 	=d _##name *0
+
+#define LOOP_BEG(name, count) \
+	=l _##name $0 \
+	=n _loop-##name $0 \
+	== _loop-##name $##count
+
+#define LOOP_END(name) \
+	=- _loop-##name $1 \
+	=? %loop-##name $0 \
+	=d _##name $0
+	
