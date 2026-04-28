@@ -121,3 +121,19 @@ See License file for more informations.
 	=< %ynop-##name $1 \
 	=- _ynop-##name $1 \
 	=d _yNOP-##name $0
+
+#define NEWCHAR(char) \
+	@.##char
+
+#define RSTCHAR() \
+	@.#
+
+#define DESTROY() \
+	RSTCHAR() \
+	###############
+
+#define INCLUDE(lib) \
+	#include <lo3/##lib>
+
+#define IFDEF(cond) \
+	#ifdef cond
