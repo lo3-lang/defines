@@ -89,7 +89,7 @@ See License file for more informations.
 /* Control Flow */
 #define BREAK(name) \
 	@{0:$99} \
-	=d _##name *0
+	=d _loop-##name *0
 
 #define LOOP_BEG(name, count) \
 	=l _##name $0 \
